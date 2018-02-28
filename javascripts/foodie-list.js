@@ -140,6 +140,8 @@ function addCity() {
     formPage();
     $(".container").append(`ADD CITY FORM HERE`);
 
+
+
     //CITIES OBJ
     // "id": 1,
     // "city": "Itupeva",
@@ -147,8 +149,23 @@ function addCity() {
 
 }
 
+
+function getRestIds(){
+    let ids = [];
+    getData(`${firebase}restaurants.json`)
+        .then((data) => {
+            let keys = Object.keys(data);
+            keys.forEach((item)=>{
+                ids.push(data[item].id);
+            });
+            return ids;
+        });
+};
+
 function addRestaurant() {
     formPage();
+    let last = getRestIds();
+    console.log(last.pop());
     $(".container").append(`ADD REST FORM HERE`);
 
 
