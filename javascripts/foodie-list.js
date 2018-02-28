@@ -3,9 +3,25 @@ console.log("foodie-list.js");
 
 let firebase = "https://exercisedb-20924.firebaseio.com/foodie/";
 
+$("#addRest").css({
+    "cursor": "pointer"
+});
+$("#addRest").on("click", formPage);
+
 function getData(file) {
     return $.ajax({
         url: file
+    });
+}
+
+function addData(obj, url) {
+    $.ajax({
+        url: `${firebase}${url}`,
+        type: 'POST',
+        data: JSON.stringify(obj),
+        dataType: 'json'
+    }).done((objID) => {
+        resolve(objID);
     });
 }
 
@@ -67,7 +83,7 @@ let changeCity = () => {
                     </li>
                     `)
 
-                    if (data[item].city_id === 7){
+                    if (data[item].city_id === 7) {
                         $("#restHeader").append(" (Hometown)");
                     }
                 });
@@ -96,6 +112,53 @@ let cityDropDown = () => {
 
 cityDropDown();
 changeCity();
+
+function formPage() {
+    console.log("object");
+    $(".container").html("");
+    $(".container").append(`
+    <select class="custom-select">
+        <option selected>What Would You Like to Add?</option>
+        <option value="1">Restaurant</option>
+        <option value="2">City</option>
+    </select>`);
+
+    $(".custom-select").change(function (event) {
+        let val = event.target.value;
+        switch (val) {
+            case "1":
+                addRestaurant()
+                break;
+            case "2":
+                addCity();
+                break;
+        }
+    });
+};
+
+function addCity() {
+    formPage();
+    $(".container").append(`ADD CITY FORM HERE`);
+
+    //CITIES OBJ
+    // "id": 1,
+    // "city": "Itupeva",
+    // "trip_purpose": "lectus vestibulum quam sapien varius ut blandit non interdum in"
+
+}
+
+function addRestaurant() {
+    formPage();
+    $(".container").append(`ADD REST FORM HERE`);
+
+
+    // OBJECT REST
+    //     "id": 1,
+    //     "restaurant": "Schaefer, DuBuque and Satterfield",
+    //     "city_id": 4,
+    //     "date_visited": "6/25/2017",
+    //     "my_rating": 4.52
+}
 
 
 // There should be a form for a user to add more restaurants with a <select> element for picking which city the new restaurant is in and all other required fields. When the user submits this form, the restaurant should appear on the page(unless the view is currently filtered to show a city where the newly restaurant is not in). All fields in the form should also be cleared so that the form is ready for the user to add the next restaurant.
