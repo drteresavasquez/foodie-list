@@ -150,23 +150,35 @@ function addCity() {
 }
 
 
-function getRestIds(){
+function addRestaurant() {
+    formPage();
     let ids = [];
     getData(`${firebase}restaurants.json`)
         .then((data) => {
             let keys = Object.keys(data);
-            keys.forEach((item)=>{
+            keys.forEach((item) => {
                 ids.push(data[item].id);
             });
-            return ids;
+            let itemID = ids.pop() + 1;
+            $(".container").append(`
+            <h5>Add a Restaurant</h5>
+            <form class = "add-restaurant">
+            <div class="form-group">
+              <label for="name">Restaurant Name</label>
+              <input type="text" class="form-control" id="volunteerFormName" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="date_visited">Date Visited</label>
+              <input type="date_visited" class="form-control" id="volunteerFormEmail" placeholder="Date" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Your Rating</label>
+              <input type="text" class="form-control" id="volunteerFormTime" placeholder="1-5">
+            </div>
+            <button type="submit" class="btn btn-dark volunteer-form-submit-button">Submit</button>
+          </form>
+            `);
         });
-};
-
-function addRestaurant() {
-    formPage();
-    let last = getRestIds();
-    console.log(last.pop());
-    $(".container").append(`ADD REST FORM HERE`);
 
 
     // OBJECT REST
