@@ -21,7 +21,7 @@ function addData(obj, url) {
         data: JSON.stringify(obj),
         dataType: 'json'
     }).done((objID) => {
-        resolve(objID);
+        console.log(objID);
     });
 }
 
@@ -138,17 +138,51 @@ function formPage() {
 
 function addCity() {
     formPage();
-    $(".container").append(`ADD CITY FORM HERE`);
+    let ids = [];
+    getData(`${firebase}cities.json`)
+        .then((data) => {
+            let keys = Object.keys(data);
+            keys.forEach((item) => {
+                ids.push(data[item].id);
+            });
+            let itemID = ids.pop() + 1;
 
 
+            //Header
+            $(".container").append(`
+         <h5 class="formHeader">Add a City</h5>
+         <form id="add-city">`);
 
-    //CITIES OBJ
-    // "id": 1,
-    // "city": "Itupeva",
-    // "trip_purpose": "lectus vestibulum quam sapien varius ut blandit non interdum in"
+            //City Name
+            $(".container").append(`<div class="form-group">
+         <input type="text" class="form-control" id="cityName" placeholder="Enter City Name">
+       </div>`);
 
+            //Trip Purpose
+            $(".container").append(`<div class="form-group">
+       <input type="text" class="form-control" id="tripPurpose" placeholder="What was the purpose of your trip?">
+     </div>`);
+
+            //Submit button
+            $(".container").append(` <button id="submit" type="submit" class="btn btn-dark volunteer-form-submit-button">Submit</button>
+            </form>
+            `);
+
+            $("#submit").click(function (event) {
+                let newCityObj = {
+                    "id": itemID,
+                    "city": $("#cityName").val(),
+                    "trip_purpose": $("#tripPurpose").val()
+                }
+                console.log(newCityObj);
+                addData(newCityObj, "cities.json");
+
+                $("#cityName").val("");
+                $("#tripPurpose").val("");
+            });
+
+        });
 }
-
 
 function addRestaurant() {
     formPage();
@@ -160,39 +194,74 @@ function addRestaurant() {
                 ids.push(data[item].id);
             });
             let itemID = ids.pop() + 1;
+
+            //Header
             $(".container").append(`
-            <h5>Add a Restaurant</h5>
-            <form class = "add-restaurant">
-            <div class="form-group">
-              <label for="name">Restaurant Name</label>
-              <input type="text" class="form-control" id="volunteerFormName" placeholder="Name">
-            </div>
-            <div class="form-group">
-              <label for="date_visited">Date Visited</label>
-              <input type="date_visited" class="form-control" id="volunteerFormEmail" placeholder="Date" required>
-            </div>
-            <div class="form-group">
-              <label for="message">Your Rating</label>
-              <input type="text" class="form-control" id="volunteerFormTime" placeholder="1-5">
-            </div>
-            <button type="submit" class="btn btn-dark volunteer-form-submit-button">Submit</button>
+            <h5 class="formHeader">Add a Restaurant</h5>
+            <form id="add-restaurant">`);
+
+            //Rest Name
+            $(".container").append(`<div class="form-group">
+              <input type="text" class="form-control" id="restName" placeholder="Enter Restaurant Name">
+            </div>`);
+
+            //city
+            $(".container").append(`<select class="custom-select mb-3" id="addRestCity">
+            <option selected>Select a City</option>
+            </select>`);
+
+            getData(`${firebase}cities.json`)
+                .then((data) => {
+                    let keys = Object.keys(data);
+                    keys.forEach((item) => {
+                        let eachCity = data[item];
+                        $("#addRestCity").append(`<option value="${eachCity.id}">${eachCity.city}</option>`);
+                    })
+                });
+
+            //Date
+            $(".container").append(`<h5>Date Visited</h5>`);
+
+            $(".container").append(`<div class="form-group">
+            <input id="date" type="date">
+          </div>`);
+
+
+            // Rating
+            $(".container").append(`
+                <h5>Rate the Spot</h5>`);
+            let ratings = [1, 2, 3, 4, 5]
+            ratings.forEach((num) => {
+                $(".container").append(`
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="rating" id="rating" value=${num}>
+                <label class="form-check-label" for="inlineRadio1">${num}</label>
+                </div>`);
+            });
+
+            //Submit button
+            $(".container").append(` <button id="submit" type="submit" class="btn btn-dark volunteer-form-submit-button">Submit</button>
           </form>
             `);
+
+            $("#submit").click(function (event) {
+                let newRestObj = {
+                    "id": itemID,
+                    "restaurant": $("#restName").val(),
+                    "city_id": parseInt($("#addRestCity").val()),
+                    "date_visited": $("#date").val(),
+                    "my_rating": parseInt($("input[name='rating']:checked").val())
+                }
+                console.log(newRestObj);
+                addData(newRestObj, "restaurants.json");
+
+                $("#restName").val("");
+                $("#addRestCity").val("");
+                $("#date").val("");
+                $("input[name='rating']").val("");
+            });
         });
-
-
-    // OBJECT REST
-    //     "id": 1,
-    //     "restaurant": "Schaefer, DuBuque and Satterfield",
-    //     "city_id": 4,
-    //     "date_visited": "6/25/2017",
-    //     "my_rating": 4.52
 }
-
-
-// There should be a form for a user to add more restaurants with a <select> element for picking which city the new restaurant is in and all other required fields. When the user submits this form, the restaurant should appear on the page(unless the view is currently filtered to show a city where the newly restaurant is not in). All fields in the form should also be cleared so that the form is ready for the user to add the next restaurant.
-
-// Provide a way for the user to add new cities. You can either add another form on the page or incorporate it into the existing form for adding restaurants.
 
 
 // Add a way for a user to filter restaurants by rating.
