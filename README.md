@@ -3,7 +3,23 @@ Foodie, a single page web app, allows users to add and view all the restaurants 
 
 ## Screen Shots
 
+### Home Screen
+![alt text](./images/home.jpeg)
 
+### Filter By City
+![alt text](./images/city-filter.jpeg)
+
+### View By City
+![alt text](./images/city-view.jpeg)
+
+### Add Either Restaurant or City
+![alt text](./images/add.jpeg)
+
+### Add Restaurant
+![alt text](./images/add-rest.jpeg)
+
+### Add City
+![alt text](./images/add-city.jpeg)
 
 ## Setup
 To clone this project, run the following in your command line.
