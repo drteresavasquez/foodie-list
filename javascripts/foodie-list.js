@@ -2,6 +2,7 @@
 console.log("foodie-list.js");
 
 let firebase = "https://exercisedb-20924.firebaseio.com/foodie/";
+let $ = require('jquery');
 
 $("#addRest").css({
     "cursor": "pointer"
@@ -33,7 +34,7 @@ let showSortedRestaurants = () => {
             let ratings = [];
             let keys = Object.keys(data);
             keys.forEach((item) => {
-                let listItem = data[item]
+                let listItem = data[item];
                 ratings.push([listItem.restaurant, listItem.my_rating]);
             });
             ratings.sort((a, b) => {
@@ -72,11 +73,11 @@ let showSortedRestaurants = () => {
                 ${rest[0]}
                 <span class="badge badge-primary badge-pill">${rest[1]}</span>
                 </li>
-                `)
+                `);
             });
             $(".container").append(`</ul>`);
         });
-}
+};
 
 let changeCity = () => {
     $(".container").html("");
@@ -118,7 +119,7 @@ let changeCity = () => {
                     ${data[item].restaurant}
                     <span class="badge badge-primary badge-pill">${data[item].my_rating}</span>
                     </li>
-                    `)
+                    `);
                     if (data[item].city_id === 7) {
                         $("#restHeader").append(" (Hometown)");
                     }
@@ -160,14 +161,14 @@ function formPage() {
         let val = event.target.value;
         switch (val) {
             case "1":
-                addRestaurant()
+                addRestaurant();
                 break;
             case "2":
                 addCity();
                 break;
         }
     });
-};
+}
 
 function addCity() {
     formPage();
@@ -205,7 +206,7 @@ function addCity() {
                     "id": itemID,
                     "city": $("#cityName").val(),
                     "trip_purpose": $("#tripPurpose").val()
-                }
+                };
                 console.log(newCityObj);
                 addData(newCityObj, "cities.json");
 
@@ -248,7 +249,7 @@ function addRestaurant() {
                     keys.forEach((item) => {
                         let eachCity = data[item];
                         $("#addRestCity").append(`<option value="${eachCity.id}">${eachCity.city}</option>`);
-                    })
+                    });
                 });
 
             //Date
@@ -262,7 +263,7 @@ function addRestaurant() {
             // Rating
             $(".container").append(`
                 <h5>Rate the Spot</h5>`);
-            let ratings = [1, 2, 3, 4, 5]
+            let ratings = [1, 2, 3, 4, 5];
             ratings.forEach((num) => {
                 $(".container").append(`
                 <div class="form-check form-check-inline">
@@ -283,7 +284,7 @@ function addRestaurant() {
                     "city_id": parseInt($("#addRestCity").val()),
                     "date_visited": $("#date").val(),
                     "my_rating": parseInt($("input[name='rating']:checked").val())
-                }
+                };
                 console.log(newRestObj);
                 addData(newRestObj, "restaurants.json");
 
