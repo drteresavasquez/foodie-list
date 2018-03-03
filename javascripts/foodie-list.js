@@ -42,6 +42,25 @@ let showSortedRestaurants = () => {
 
             //Begin DOM Manipulation
             $(".container").html("");
+
+            //Carousel on Home Page
+            let homepageImgs = ["./images/hp1.jpg", "./images/hp2.jpeg", "./images/hp3.jpeg"];
+
+            homepageImgs.forEach((img, index) => {
+                if (index === 0) {
+                    $(".carousel-inner").append(`
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="${img}" alt="Foodie">
+                    </div>`);
+                } else {
+                    $(".carousel-inner").append(`
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="${img}" alt="Foodie">
+                    </div>`);
+                }
+            });
+
+            //Restaurant List
             $(".container").append(`<ul class="list-group">`);
             $(".list-group").append(`<li class="list-group-item     list-group-item-secondary d-flex justify-content-between align-items-center">
             <h5>Restaurant Name<h5>
@@ -67,8 +86,26 @@ let changeCity = () => {
     if (queryString !== undefined) {
         getData(`${firebase}restaurants.json?orderBy="city_id"&equalTo=${queryString}`)
             .then((data) => {
+
+                //Add City Heading to Page
+                getData(`${firebase}cities.json?orderBy="id"&equalTo=${queryString}`)
+                    .then((city) => {
+                        let keys = Object.keys(city);
+                        keys.forEach((item) => {
+                            $(".list-group").prepend(`<li class="list-group-item list-group-item-info d-flex justify-content-between align-items-center">
+                            <h5>City: ${city[item].city}<h5>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <p class="reason">Reason for Visit: ${city[item].trip_purpose}</p>
+                            </li>`);
+                        });
+                    });
+
                 //Begin DOM Manipulation
                 $(".container").html("");
+                $("#carouselExampleControls").css({
+                    "display": "none"
+                });
                 $(".container").append(`<ul class="list-group">`);
                 $(".list-group").append(`<li class="list-group-item     list-group-item-secondary d-flex justify-content-between align-items-center">
                 <h5 id="restHeader">Restaurant Name<h5>
@@ -82,13 +119,11 @@ let changeCity = () => {
                     <span class="badge badge-primary badge-pill">${data[item].my_rating}</span>
                     </li>
                     `)
-
                     if (data[item].city_id === 7) {
                         $("#restHeader").append(" (Hometown)");
                     }
                 });
                 $(".container").append(`</ul>`);
-
             });
     } else {
         showSortedRestaurants();
@@ -106,10 +141,8 @@ let cityDropDown = () => {
             });
             $(".dropdown-menu").append(`<div class="dropdown-divider"></div>
         <a class="dropdown-item" href="/">View All</a>`);
-
         });
 };
-
 cityDropDown();
 changeCity();
 
@@ -146,7 +179,6 @@ function addCity() {
                 ids.push(data[item].id);
             });
             let itemID = ids.pop() + 1;
-
 
             //Header
             $(".container").append(`
