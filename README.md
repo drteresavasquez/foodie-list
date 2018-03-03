@@ -1,6 +1,17 @@
 # FOODIE
 Foodie, a single page web app, allows users to add and view all the restaurants they have been to with ratings. It also allows the user to filter restaurants by city. Users can also add additional cities and the purpose of their trip.
 
+## Project Setup
+To clone this project, run the following in your command line.
+```
+git clone https://github.com/drteresavasquez/foodie-list.git
+cd foodie-list
+cd lib
+npm install
+grunt
+hs -o
+```
+
 ## Demo
 
 ### Home Screen
@@ -20,17 +31,6 @@ Foodie, a single page web app, allows users to add and view all the restaurants 
 
 ### Add City
 ![alt text](./images/add-city.jpeg)
-
-## Project Setup
-To clone this project, run the following in your command line.
-```
-git clone https://github.com/drteresavasquez/foodie-list.git
-cd foodie-list
-cd lib
-npm install
-grunt
-hs -o
-```
 
 ## Data
 You may either use the local data or upload to Firebase, which is what this project uses to access the data.
