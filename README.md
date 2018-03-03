@@ -3,6 +3,8 @@ Foodie, a single page web app, allows users to add and view all the restaurants 
 
 ## Screen Shots
 
+### Home Screen
+![alt text](./images/home.jpeg)
 
 
 ## Setup

@@ -1,36 +1,42 @@
 .container{
     margin-top: 20px;
     margin-bottom: 20px;
-}
-
-.formHeader{
+  }
+  
+  .formHeader{
     padding-top: 20px;
-}
-
-#carouselExampleControls{
+  }
+  
+  #carouselExampleControls{
     height: 300px;
     overflow: hidden;
-}
-
-.headings{
+  }
+  
+  .headings{
     margin: auto;
     width: 90%;
-}
-#restHeader{
+  }
+  #restHeader{
     font-size: 1em;
-}
-
-.reason{
-    font-size: 1em; 
-}
-
-#emptySelection{
-   padding: 50px;
-}
-
-@media only screen and (max-width: 500px) {
+  }
+  
+  .reason{
+    font-size: 1em;
+  }
+  
+  #emptySelection{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  #emptySelection img{
+    margin-bottom: 20px;
+  }
+  
+  @media only screen and (max-width: 500px) {
     #carouselExampleControls{
         margin-bottom: -150px;
         z-index: -55;
     }
-}
+  }
