@@ -43,9 +43,8 @@ function addRestaurant() {
             $(".container").append(`<h5>Date Visited</h5>`);
 
             $(".container").append(`<div class="form-group">
-            <input id="date" type="date">
+            <input id="date" type="date" data-placeholder="Date of Visit>"
           </div>`);
-
 
             // Rating
             $(".container").append(`
@@ -68,7 +67,7 @@ function addRestaurant() {
                 if ($("#restName").val() === "" ||
                     $("#addRestCity").val() === "" ||
                     $("#date").val() === "" ||
-                    $("input[name='rating']").val()==="") {
+                    $("input[name='rating']").val() === "") {
                     window.alert("Please Complete All Options");
                 } else {
                     let newRestObj = {
