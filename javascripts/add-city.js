@@ -36,6 +36,9 @@ function addCity() {
             `);
 
             $("#submit").click(function (event) {
+                if($("#cityName").val()=== "" || $("#tripPurpose").val() === ""){
+                    window.alert("Please Enter A Valid City or Trip Purpose");
+                }else{
                 let newCityObj = {
                     "id": itemID,
                     "city": $("#cityName").val(),
@@ -46,6 +49,7 @@ function addCity() {
 
                 $("#cityName").val("");
                 $("#tripPurpose").val("");
+            }
             });
 
         });

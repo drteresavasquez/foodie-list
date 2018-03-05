@@ -37,6 +37,9 @@ function addCity() {
             `);
 
             $("#submit").click(function (event) {
+                if($("#cityName").val()=== "" || $("#tripPurpose").val() === ""){
+                    window.alert("Please Enter A Valid City or Trip Purpose");
+                }else{
                 let newCityObj = {
                     "id": itemID,
                     "city": $("#cityName").val(),
@@ -47,6 +50,7 @@ function addCity() {
 
                 $("#cityName").val("");
                 $("#tripPurpose").val("");
+            }
             });
 
         });
@@ -266,7 +270,7 @@ let cityDropDown = () => {
             <a class="dropdown-item" href="?${eachCity.id}" id="${eachCity.id}">${eachCity.city}</a>`);
             });
             $(".dropdown-menu").append(`<div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="/">View All</a>`);
+        <a class="dropdown-item" href="https://drteresavasquez.github.io/foodie-list">View All</a>`);
         });
 };
 cityDropDown();
