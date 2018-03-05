@@ -43,9 +43,8 @@ function addRestaurant() {
             $(".container").append(`<h5>Date Visited</h5>`);
 
             $(".container").append(`<div class="form-group">
-            <input id="date" type="date">
+            <input id="date" type="date" data-placeholder="Date of Visit>"
           </div>`);
-
 
             // Rating
             $(".container").append(`
@@ -65,20 +64,27 @@ function addRestaurant() {
             `);
 
             $("#submit").click(function (event) {
-                let newRestObj = {
-                    "id": itemID,
-                    "restaurant": $("#restName").val(),
-                    "city_id": parseInt($("#addRestCity").val()),
-                    "date_visited": $("#date").val(),
-                    "my_rating": parseInt($("input[name='rating']:checked").val())
-                };
-                console.log(newRestObj);
-                fbCalls.addData(newRestObj, "restaurants.json");
+                if ($("#restName").val() === "" ||
+                    $("#addRestCity").val() === "" ||
+                    $("#date").val() === "" ||
+                    $("input[name='rating']").val() === "") {
+                    window.alert("Please Complete All Options");
+                } else {
+                    let newRestObj = {
+                        "id": itemID,
+                        "restaurant": $("#restName").val(),
+                        "city_id": parseInt($("#addRestCity").val()),
+                        "date_visited": $("#date").val(),
+                        "my_rating": parseInt($("input[name='rating']:checked").val())
+                    };
+                    console.log(newRestObj);
+                    fbCalls.addData(newRestObj, "restaurants.json");
 
-                $("#restName").val("");
-                $("#addRestCity").val("");
-                $("#date").val("");
-                $("input[name='rating']").val("");
+                    $("#restName").val("");
+                    $("#addRestCity").val("");
+                    $("#date").val("");
+                    $("input[name='rating']").val("");
+                }
             });
         });
 }
