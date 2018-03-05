@@ -14,7 +14,7 @@ let cityDropDown = () => {
             <a class="dropdown-item" href="?${eachCity.id}" id="${eachCity.id}">${eachCity.city}</a>`);
             });
             $(".dropdown-menu").append(`<div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="/">View All</a>`);
+        <a class="dropdown-item" href="https://drteresavasquez.github.io/foodie-list">View All</a>`);
         });
 };
 cityDropDown();
