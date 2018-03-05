@@ -14,6 +14,8 @@ hs -o
 
 ## Demo
 
+Site Deployed: https://drteresavasquez.github.io/foodie-list/
+
 ### Home Screen
 ![alt text](./images/home.jpeg)
 
